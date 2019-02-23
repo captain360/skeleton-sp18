@@ -82,8 +82,14 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        if(A == null || B == null){
+
+        //Checking null cases.
+        if(A == null && B == null){
             return null;
+        } else if (A == null && B != null){
+            return B;
+        } else if (A != null && B == null){
+            return A;
         }
 
         IntList ptr = A;
@@ -103,11 +109,16 @@ public class IntList {
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
 
-        //Null Argument.
-        if(A == null || B == null){
+        //Checking null cases.
+        if(A == null && B == null){
             return null;
+        } else if (A == null && B != null){
+            return B;
+        } else if (A != null && B == null){
+            return A;
         }
 
+        
         //Copying the elements of A.
         IntList ptrToA = A;
         IntList copyOfA = new IntList(ptrToA.first,null);
