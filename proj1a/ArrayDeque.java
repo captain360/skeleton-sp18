@@ -118,14 +118,11 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        int locOfFirstItem = plusOne(nextFront);
+        int current = plusOne(nextFront);
         for (int i = 0; i < size ; i++){
-            if (i == index){
-                return items[locOfFirstItem];
-            }
-            locOfFirstItem = plusOne(locOfFirstItem);
+            current = plusOne(current);
         }
-        return null;
+        return items[current];
     }
 
     public void printDeque(){
