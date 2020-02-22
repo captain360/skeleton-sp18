@@ -13,12 +13,12 @@
 
 
 public class ArrayDeque<T> {
-    int size;
-    int nextFront;
-    int nextLast;
-    T[] items;
-    public static final int RFACTOR = 2;
-    public static final double MIN_USAGE_RATIO = 0.3;
+    private int size;
+    private int nextFront;
+    private int nextLast;
+    private T[] items;
+    private static final int RFACTOR = 2;
+    private static final double MIN_USAGE_RATIO = 0.3;
 
 
 
@@ -72,14 +72,14 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        if (size > 16 && size < items.length * MIN_USAGE_RATIO){
-            resize(items.length/2);
-        }
-
         T item = items[plusOne(nextFront)];
         items[plusOne(nextFront)] = null;
         nextFront = plusOne(nextFront);
         size--;
+
+        if (size > 16 && size < items.length * MIN_USAGE_RATIO){
+            resize(items.length/2);
+        }
 
         return item;
     }
@@ -90,15 +90,14 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        if (size > 16 && items.length/size <= MIN_USAGE_RATIO){
-            resize(items.length/2);
-        }
-
         T item = items[minusOne(nextLast)];
         items[minusOne(nextLast)] = null;
         nextLast = minusOne(nextLast);
         size--;
 
+        if (size > 16 && size < items.length * MIN_USAGE_RATIO){
+            resize(items.length/2);
+        }
         return item;
     }
 
@@ -120,7 +119,7 @@ public class ArrayDeque<T> {
         }
 
         int locOfFirstItem = plusOne(nextFront);
-        for (int i = 0; i < size - 1; i++){
+        for (int i = 0; i < size ; i++){
             if (i == index){
                 return items[locOfFirstItem];
             }
@@ -144,7 +143,7 @@ public class ArrayDeque<T> {
         T[] newArray = (T[]) new Object[capacity];
 
         int start = plusOne(nextFront);
-        for (int i = 0; i < size - 1; i++){
+        for (int i = 0; i < size ; i++){
             newArray[i] = items[start];
             start = plusOne(start);
         }

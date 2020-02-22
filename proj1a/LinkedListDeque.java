@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     private class StuffNode{
-        T item;
-        StuffNode next;
-        StuffNode prev;
+        private T item;
+        private StuffNode next;
+        private StuffNode prev;
 
         public StuffNode(T item, StuffNode next, StuffNode prev){
             this.item = item;
@@ -14,32 +14,22 @@ public class LinkedListDeque<T> {
     //First item if it exists , its at sentinel.next.
     //last item if it exists , its at sentinel.prev.
 
-    StuffNode sentinel;
-    int size;
+    private StuffNode sentinel;
+    private int size;
 
     //Creates an empty LinkedList.
     public LinkedListDeque(){
-        sentinel = new StuffNode((T)"null",sentinel,sentinel);
+        sentinel = new StuffNode((T)"null",null,null);
         size = 0;
-    }
-
-    public LinkedListDeque(T item){
-        sentinel = new StuffNode((T)"null",sentinel,sentinel);
-        sentinel.next = new StuffNode(item,sentinel,sentinel);
-        sentinel.prev = sentinel.next; //sentinel.prev should point at last node.
-        size = 1;
+        sentinel.prev = sentinel;
+        sentinel.next = sentinel;
     }
 
     public void addFirst(T item){
-
-
-        StuffNode p = new StuffNode(item,sentinel.next,sentinel);
-        if(!isEmpty()){
-            StuffNode oldFirst = sentinel.next;
-            oldFirst.prev = sentinel.next;
-        }
-        sentinel.next = p;
-        size += 1;
+        StuffNode oldFirst = sentinel.next;
+        sentinel.next = new StuffNode(item,sentinel.next,sentinel);
+        oldFirst.prev = sentinel.next;
+        this.size += 1;
     }
 
     public void addLast(T item){
@@ -52,7 +42,6 @@ public class LinkedListDeque<T> {
         if(this.size == 0){
             return true;
         }
-
         return false;
     }
 
@@ -101,13 +90,10 @@ public class LinkedListDeque<T> {
     public T get(int index){
         if(index < size || index < 0){
             return null;
-        }
-
-        StuffNode p = sentinel.next;
+        } StuffNode p = sentinel.next;
         for (int i = 0; i != index; i++){
             p = p.next;
         }
-
         return p.item;
     }
 
@@ -124,5 +110,4 @@ public class LinkedListDeque<T> {
         }
         return getRecursive(node.next,index--);
     }
-
 }
