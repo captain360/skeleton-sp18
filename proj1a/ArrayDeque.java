@@ -118,7 +118,7 @@ public class ArrayDeque<T> {
         }
 
         int firstIndex = plusOne(nextFront);
-        for (int i = 1; i < size; i++) {
+        for (int i = 0; i < index; i++) {
             firstIndex = plusOne(firstIndex);
         }
         return items[firstIndex];
@@ -149,3 +149,4 @@ public class ArrayDeque<T> {
         nextLast = size;
     }
 }
+
